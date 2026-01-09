@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ELVORA - AI-Powered Clinical Skincare (Next.js)
+
+This is the Next.js version of the ELVORA AI-powered clinical skincare application.
+
+## Features
+
+- 🤖 AI-powered skin analysis using Google Gemini
+- 💅 Beautiful, responsive UI with Tailwind CSS
+- 🔍 Personalized skincare recommendations
+- 📊 Skin vitality scoring system
+- 🎨 Clinical-grade product system recommendations
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ installed
+- A Google Gemini API key
+
+### Installation
+
+1. Clone the repository and navigate to the project:
+
+```bash
+cd elvora_next_project
+```
+
+2. Install dependencies (already done):
+
+```bash
+npm install
+```
+
+3. Set up your environment variables:
+
+Edit the `.env.local` file in the root directory and add your Gemini API key:
+
+```
+GEMINI_API_KEY=your_api_key_here
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+elvora_next_project/
+├── app/
+│   ├── api/
+│   │   └── analyze-skin/
+│   │       └── route.ts       # API route for skin analysis
+│   ├── globals.css            # Global styles with Tailwind
+│   ├── layout.tsx             # Root layout
+│   └── page.tsx               # Main page
+├── components/
+│   ├── Navbar.tsx
+│   ├── Hero.tsx
+│   ├── HowItWorks.tsx
+│   ├── ConcernSelector.tsx
+│   ├── SystemsDisplay.tsx
+│   ├── AIAnalysisPreview.tsx
+│   ├── BeforeAfter.tsx
+│   ├── WhyElvora.tsx
+│   ├── Testimonials.tsx
+│   ├── Consultation.tsx
+│   ├── Footer.tsx
+│   └── AnalysisModal.tsx      # AI skin analysis modal
+└── lib/
+    └── types.ts               # TypeScript type definitions
+```
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js 16** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first CSS framework
+- **Google Gemini AI** - Advanced AI for skin analysis
+- **React 19** - UI library
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Key Differences from Original Vite Project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Server-Side API Routes**: The Gemini AI analysis now runs on the server via Next.js API routes (`/api/analyze-skin`), keeping your API key secure
+2. **App Router**: Uses Next.js App Router for better performance and SEO
+3. **Client Components**: Interactive components use the `'use client'` directive
+4. **Environment Variables**: Uses `.env.local` for environment configuration
+5. **Built-in Optimization**: Automatic code splitting, image optimization, and more
 
-## Deploy on Vercel
+## Available Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `npm run dev` - Start development server (http://localhost:3000)
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Migration Notes
+
+✅ All components have been successfully migrated
+✅ Gemini AI service moved to server-side API route
+✅ Tailwind CSS configuration with custom sage color
+✅ TypeScript types preserved
+✅ All styling and animations maintained
+✅ Build tested and verified
+
+## License
+
+All rights reserved © 2026 ELVORA Skincare
