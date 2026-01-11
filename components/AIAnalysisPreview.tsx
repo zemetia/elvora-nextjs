@@ -1,7 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 
-const AIAnalysisPreview: React.FC = () => {
+interface AIAnalysisPreviewProps {
+  onOpenAnalysis?: () => void;
+}
+
+const AIAnalysisPreview: React.FC<AIAnalysisPreviewProps> = ({ onOpenAnalysis }) => {
   return (
     <section className="py-24 bg-[#F2F4F2]">
       <div className="max-w-7xl mx-auto px-6">

@@ -4,7 +4,11 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onOpenAnalysis?: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onOpenAnalysis }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();

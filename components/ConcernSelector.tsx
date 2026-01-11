@@ -9,7 +9,11 @@ const concerns = [
   { type: "Barrier Repair", image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&q=80&w=600" },
 ];
 
-const ConcernSelector: React.FC = () => {
+interface ConcernSelectorProps {
+  onOpenAnalysis?: () => void;
+}
+
+const ConcernSelector: React.FC<ConcernSelectorProps> = ({ onOpenAnalysis }) => {
   return (
     <section className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6">
