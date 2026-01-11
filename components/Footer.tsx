@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
@@ -6,7 +7,9 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 mb-16">
           <div className="col-span-2">
-            <a href="#" className="text-3xl font-serif tracking-widest font-bold mb-6 inline-block">ELVORA</a>
+            <Link href="/" className="text-3xl font-serif tracking-widest font-bold mb-6 inline-block">
+              ELVORA
+            </Link>
             <p className="text-gray-500 max-w-sm mb-8 leading-relaxed">
               Premium clinical skincare guided by intelligence. We believe in transparency, simplicity, and personalized skin health for every gender.
             </p>
@@ -21,42 +24,42 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h5 className="font-semibold text-gray-900 mb-6 uppercase tracking-widest text-xs">About</h5>
+            <h5 className="font-semibold text-gray-900 mb-6 uppercase tracking-widest text-xs">Company</h5>
             <ul className="space-y-4 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-sage transition-colors">Our Story</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Philosophy</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Ingredients</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Reviews</a></li>
+              <li><Link href="/about" className="hover:text-sage transition-colors">About Us</Link></li>
+              <li><Link href="/about" className="hover:text-sage transition-colors">Our Story</Link></li>
+              <li><Link href="/contact" className="hover:text-sage transition-colors">Contact</Link></li>
+              <li><Link href="/analyze" className="hover:text-sage transition-colors">AI Skin Scan</Link></li>
             </ul>
           </div>
 
           <div>
-            <h5 className="font-semibold text-gray-900 mb-6 uppercase tracking-widest text-xs">Systems</h5>
+            <h5 className="font-semibold text-gray-900 mb-6 uppercase tracking-widest text-xs">Products</h5>
             <ul className="space-y-4 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-sage transition-colors">Acne Recovery</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Brightening</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Sensitive</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Anti-Aging</a></li>
+              <li><Link href="/systems/acne-recovery" className="hover:text-sage transition-colors">Acne Recovery</Link></li>
+              <li><Link href="/systems/brightening-barrier" className="hover:text-sage transition-colors">Brightening</Link></li>
+              <li><Link href="/systems/sensitive-skin" className="hover:text-sage transition-colors">Sensitive</Link></li>
+              <li><Link href="/routine" className="hover:text-sage transition-colors">All Routines</Link></li>
             </ul>
           </div>
 
           <div>
-            <h5 className="font-semibold text-gray-900 mb-6 uppercase tracking-widest text-xs">Education</h5>
+            <h5 className="font-semibold text-gray-900 mb-6 uppercase tracking-widest text-xs">Resources</h5>
             <ul className="space-y-4 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-sage transition-colors">Skin Academy</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Routine Guide</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Ingredient Glossary</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Journal</a></li>
+              <li><Link href="/routine" className="hover:text-sage transition-colors">Routine Guide</Link></li>
+              <li><Link href="/analyze" className="hover:text-sage transition-colors">Skin Analysis</Link></li>
+              <li><Link href="/contact" className="hover:text-sage transition-colors">Consultation</Link></li>
+              <li><Link href="/about" className="hover:text-sage transition-colors">Our Technology</Link></li>
             </ul>
           </div>
 
           <div>
             <h5 className="font-semibold text-gray-900 mb-6 uppercase tracking-widest text-xs">Support</h5>
             <ul className="space-y-4 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-sage transition-colors">Contact Us</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Shipping</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">Returns</a></li>
-              <li><a href="#" className="hover:text-sage transition-colors">FAQ</a></li>
+              <li><Link href="/contact" className="hover:text-sage transition-colors">Contact Us</Link></li>
+              <li><Link href="/contact" className="hover:text-sage transition-colors">FAQ</Link></li>
+              <li><Link href="#" className="hover:text-sage transition-colors">Shipping</Link></li>
+              <li><Link href="#" className="hover:text-sage transition-colors">Returns</Link></li>
             </ul>
           </div>
         </div>
@@ -66,9 +69,9 @@ const Footer: React.FC = () => {
             © {new Date().getFullYear()} ELVORA Skincare. All rights reserved.
           </p>
           <div className="flex gap-8 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-            <a href="#" className="hover:text-sage">Privacy Policy</a>
-            <a href="#" className="hover:text-sage">Terms of Service</a>
-            <a href="#" className="hover:text-sage">AI Disclaimer</a>
+            <Link href="#" className="hover:text-sage">Privacy Policy</Link>
+            <Link href="#" className="hover:text-sage">Terms of Service</Link>
+            <Link href="#" className="hover:text-sage">AI Disclaimer</Link>
           </div>
         </div>
       </div>

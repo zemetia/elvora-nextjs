@@ -33,3 +33,55 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Embla Carousel Styles */
+.embla {
+  position: relative;
+}
+
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  backface-visibility: hidden;
+}
+
+.embla__slide {
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* Responsive carousel slides */
+@media (min-width: 768px) {
+  .embla__slide--tablet-2 {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .embla__slide--desktop-3 {
+    flex: 0 0 calc(33.333% - 1rem);
+  }
+}
+
+/* Animated dash for connection lines */
+@keyframes dash {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+.animate-dash {
+  animation: dash 1s linear infinite;
+}
+
+/* Glass morphism variant with sage tint */
+.glass-sage {
+  background: rgba(132, 169, 140, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}

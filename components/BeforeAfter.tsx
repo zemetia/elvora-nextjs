@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { EmblaCarousel } from '@/components/ui/EmblaCarousel';
 
 const cases = [
   {
@@ -29,6 +32,59 @@ const cases = [
 ];
 
 const BeforeAfter: React.FC = () => {
+  const caseCards = cases.map((item, idx) => (
+    <div key={idx} className="space-y-6 group">
+      <div className="relative rounded-[2.5rem] overflow-hidden bg-gray-100 shadow-xl ring-1 ring-black/5 transition-transform duration-700 hover:-translate-y-2">
+        <div className="grid grid-cols-2 gap-[1px] bg-white relative">
+          {/* Vertical Scanner Divider */}
+          <div className="absolute top-0 bottom-0 left-1/2 w-px bg-sage/30 z-20 shadow-[0_0_10px_rgba(132,169,140,0.5)]" />
+
+          {/* Before Side */}
+          <div className="relative aspect-[3/4] overflow-hidden">
+            <img
+              src={item.before}
+              alt="Before treatment"
+              className="w-full h-full object-cover grayscale-[0.2] brightness-90 group-hover:grayscale-0 transition-all duration-700"
+            />
+            <div className="absolute top-4 left-4 z-10">
+              <span className="px-3 py-1 bg-black/50 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-widest rounded-full border border-white/10">Before</span>
+            </div>
+          </div>
+
+          {/* After Side */}
+          <div className="relative aspect-[3/4] overflow-hidden">
+            <img
+              src={item.after}
+              alt="After treatment"
+              className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+            />
+            <div className="absolute top-4 right-4 z-10">
+              <span className="px-3 py-1 bg-sage/80 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-widest rounded-full">After</span>
+            </div>
+          </div>
+
+          {/* Dynamic Robot Scan Overlay */}
+          <div className="absolute inset-0 z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-sage/60 shadow-[0_0_20px_rgba(132,169,140,0.8)] animate-[scan_2.5s_ease-in-out_infinite]" />
+            <div className="absolute inset-0 bg-sage/5" />
+          </div>
+        </div>
+      </div>
+
+      <div className="px-4">
+        <div className="flex justify-between items-start mb-2">
+          <div>
+            <h4 className="font-serif text-2xl text-gray-900">{item.title}</h4>
+            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mt-1">{item.system}</p>
+          </div>
+          <span className="px-4 py-1.5 bg-[#F4F7F4] text-sage text-[10px] font-bold uppercase tracking-widest rounded-full border border-sage/10">
+            {item.duration}
+          </span>
+        </div>
+      </div>
+    </div>
+  ));
+
   return (
     <section id="transformations" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -40,59 +96,26 @@ const BeforeAfter: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-12">
-          {cases.map((item, idx) => (
-            <div key={idx} className="space-y-6 group">
-              <div className="relative rounded-[2.5rem] overflow-hidden bg-gray-100 shadow-xl ring-1 ring-black/5 transition-transform duration-700 hover:-translate-y-2">
-                <div className="grid grid-cols-2 gap-[1px] bg-white relative">
-                  {/* Vertical Scanner Divider */}
-                  <div className="absolute top-0 bottom-0 left-1/2 w-px bg-sage/30 z-20 shadow-[0_0_10px_rgba(132,169,140,0.5)]" />
+        {/* Mobile and Tablet: Carousel with auto-play */}
+        <div className="lg:hidden">
+          <EmblaCarousel
+            options={{
+              align: 'center',
+              loop: true,
+              slidesToScroll: 1,
+            }}
+            showDots={true}
+            showArrows={true}
+            autoPlay={true}
+            autoPlayInterval={6000}
+          >
+            {caseCards}
+          </EmblaCarousel>
+        </div>
 
-                  {/* Before Side */}
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <img
-                      src={item.before}
-                      alt="Before treatment"
-                      className="w-full h-full object-cover grayscale-[0.2] brightness-90 group-hover:grayscale-0 transition-all duration-700"
-                    />
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className="px-3 py-1 bg-black/50 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-widest rounded-full border border-white/10">Before</span>
-                    </div>
-                  </div>
-
-                  {/* After Side */}
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <img
-                      src={item.after}
-                      alt="After treatment"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
-                    />
-                    <div className="absolute top-4 right-4 z-10">
-                      <span className="px-3 py-1 bg-sage/80 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-widest rounded-full">After</span>
-                    </div>
-                  </div>
-
-                  {/* Dynamic Robot Scan Overlay */}
-                  <div className="absolute inset-0 z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute top-0 left-0 w-full h-[2px] bg-sage/60 shadow-[0_0_20px_rgba(132,169,140,0.8)] animate-[scan_2.5s_ease-in-out_infinite]" />
-                    <div className="absolute inset-0 bg-sage/5" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="px-4">
-                <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <h4 className="font-serif text-2xl text-gray-900">{item.title}</h4>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mt-1">{item.system}</p>
-                  </div>
-                  <span className="px-4 py-1.5 bg-[#F4F7F4] text-sage text-[10px] font-bold uppercase tracking-widest rounded-full border border-sage/10">
-                    {item.duration}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
+        {/* Desktop: Grid */}
+        <div className="hidden lg:grid lg:grid-cols-3 gap-12">
+          {caseCards}
         </div>
 
         <div className="mt-20 p-12 bg-gray-900 rounded-[4rem] text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-2xl relative overflow-hidden">

@@ -2,13 +2,14 @@
 
 import React, { useState, useRef } from 'react';
 import { SkinAnalysisResult } from '@/lib/types';
+import CameraCapture from './CameraCapture';
 
 interface AnalysisModalProps {
   onClose: () => void;
 }
 
 const AnalysisModal: React.FC<AnalysisModalProps> = ({ onClose }) => {
-  const [step, setStep] = useState<'upload' | 'analyzing' | 'result'>('upload');
+  const [step, setStep] = useState<'upload' | 'camera' | 'analyzing' | 'result'>('upload');
   const [image, setImage] = useState<string | null>(null);
   const [result, setResult] = useState<SkinAnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +25,11 @@ const AnalysisModal: React.FC<AnalysisModalProps> = ({ onClose }) => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleCameraCapture = (capturedImage: string) => {
+    setImage(capturedImage);
+    setStep('upload');
   };
 
   const startAnalysis = async () => {
@@ -73,24 +79,34 @@ const AnalysisModal: React.FC<AnalysisModalProps> = ({ onClose }) => {
             <div className="text-center">
               <span className="text-sage text-[10px] font-bold uppercase tracking-[0.3em] block mb-6">Deep Diagnostics</span>
               <h2 className="text-4xl font-serif text-gray-900 mb-6">AI Skin Scan</h2>
-              <p className="text-gray-500 font-light mb-12">Upload your selfie. Our neural network will analyze 40+ skin markers to build your biological profile.</p>
+              <p className="text-gray-500 font-light mb-12">Upload your selfie or use camera. Our neural network will analyze 40+ skin markers to build your biological profile.</p>
 
-              <div
-                onClick={() => fileInputRef.current?.click()}
-                className="group aspect-[4/3] mb-12 border border-gray-200 rounded-[2.5rem] bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:border-sage transition-all overflow-hidden relative shadow-inner"
-              >
-                {image ? (
-                  <img src={image} alt="Upload preview" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="text-center px-10">
-                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 mx-auto shadow-sm group-hover:scale-110 transition-transform duration-500">
-                      <svg className="w-8 h-8 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                      </svg>
-                    </div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Click to upload selfie</span>
+              <div className="flex flex-col gap-4 mb-8">
+                 <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="group aspect-[4/3] border border-gray-200 rounded-[2.5rem] bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:border-sage transition-all overflow-hidden relative shadow-inner"
+                  >
+                    {image ? (
+                      <img src={image} alt="Upload preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="text-center px-10">
+                        <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 mx-auto shadow-sm group-hover:scale-110 transition-transform duration-500">
+                          <svg className="w-8 h-8 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                          </svg>
+                        </div>
+                        <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Click to upload selfie</span>
+                      </div>
+                    )}
                   </div>
-                )}
+                   {!image && (
+                      <button
+                        onClick={() => setStep('camera')}
+                        className="py-4 rounded-full border border-gray-200 text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:bg-gray-50 hover:text-sage transition-all"
+                      >
+                        Use Camera
+                      </button>
+                   )}
               </div>
 
               <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept="image/*" className="hidden" />
@@ -105,6 +121,15 @@ const AnalysisModal: React.FC<AnalysisModalProps> = ({ onClose }) => {
                 Start Analysis
               </button>
             </div>
+          )}
+
+          {step === 'camera' && (
+             <div className="h-[60vh]">
+                <CameraCapture 
+                   onCapture={handleCameraCapture} 
+                   onClose={() => setStep('upload')} 
+                />
+             </div>
           )}
 
           {step === 'analyzing' && (
@@ -146,14 +171,21 @@ const AnalysisModal: React.FC<AnalysisModalProps> = ({ onClose }) => {
                 <h2 className="text-5xl font-serif text-gray-900">Your Report.</h2>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-50 text-center">
-                  <span className="block text-5xl font-serif text-sage mb-2">{result.score}</span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-50 text-center col-span-2 sm:col-span-1">
+                  <span className="block text-4xl font-serif text-sage mb-2">{result.score}</span>
                   <span className="text-[9px] uppercase font-bold tracking-[0.2em] text-gray-400">Vitality Index</span>
                 </div>
-                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-50 text-center">
-                  <span className="block text-xl font-medium text-gray-900 mb-2">{result.type}</span>
+                <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-50 text-center col-span-2 sm:col-span-1">
+                  <span className="block text-lg font-medium text-gray-900 mb-2 truncate">{result.type}</span>
                   <span className="text-[9px] uppercase font-bold tracking-[0.2em] text-gray-400">Biological Type</span>
+                </div>
+                 <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-50 text-center col-span-2 sm:col-span-1 flex flex-col justify-center">
+                   <div className="flex flex-col gap-1">
+                      <div className="flex justify-between text-[9px] font-bold uppercase text-gray-400"><span>Bright</span><span>{result.brightness}</span></div>
+                      <div className="flex justify-between text-[9px] font-bold uppercase text-gray-400"><span>Texture</span><span>{result.textureScore}</span></div>
+                      <div className="flex justify-between text-[9px] font-bold uppercase text-gray-400"><span>Pores</span><span>{result.poreScore}</span></div>
+                   </div>
                 </div>
               </div>
 

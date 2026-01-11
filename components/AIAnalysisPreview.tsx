@@ -1,10 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 
-interface AIAnalysisPreviewProps {
-  onOpenAnalysis: () => void;
-}
-
-const AIAnalysisPreview: React.FC<AIAnalysisPreviewProps> = ({ onOpenAnalysis }) => {
+const AIAnalysisPreview: React.FC = () => {
   return (
     <section className="py-24 bg-[#F2F4F2]">
       <div className="max-w-7xl mx-auto px-6">
@@ -63,15 +60,15 @@ const AIAnalysisPreview: React.FC<AIAnalysisPreviewProps> = ({ onOpenAnalysis })
               </div>
             </div>
 
-            <button
-              onClick={onOpenAnalysis}
-              className="mt-12 px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-all flex items-center gap-2"
+            <Link
+              href="/analyze"
+              className="mt-12 px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-all flex items-center gap-2 w-fit"
             >
               Experience AI Scan
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </button>
+            </Link>
 
             <p className="mt-8 text-xs text-gray-400 italic">
               * AI analysis is not a medical diagnosis. Results are for skincare guidance only.

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.drs-secret.co.id)",
+      "WebFetch(domain:drs-secret.co.id)",
+      "Bash(npm install:*)",
+      "Bash(if exist .next rmdir /s /q .next)"
+    ]
+  }
+}

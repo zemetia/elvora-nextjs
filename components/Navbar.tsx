@@ -1,14 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-interface NavbarProps {
-  onOpenAnalysis: () => void;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ onOpenAnalysis }) => {
+const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,30 +17,48 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenAnalysis }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isActive = (path: string) => pathname === path;
+
+  const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/analyze', label: 'Skin Scan' },
+    { href: '/routine', label: 'Routines' },
+    { href: '/about', label: 'About' },
+    { href: '/contact', label: 'Contact' }
+  ];
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${
       isScrolled ? 'py-4 glass border-b border-black/5' : 'py-8 bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center gap-16">
-          <a href="#" className="text-2xl font-serif tracking-[0.15em] font-bold text-gray-900">ELVORA</a>
+          <Link href="/" className="text-2xl font-serif tracking-[0.15em] font-bold text-gray-900">
+            ELVORA
+          </Link>
 
           <div className="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500">
-            <a href="#" className="hover:text-sage transition-all duration-300">Home</a>
-            <button onClick={onOpenAnalysis} className="hover:text-sage transition-all duration-300">Skin Scan</button>
-            <a href="#systems" className="hover:text-sage transition-all duration-300">Systems</a>
-            <a href="#transformations" className="hover:text-sage transition-all duration-300">Transformations</a>
-            <a href="#support" className="hover:text-sage transition-all duration-300">Consultation</a>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`hover:text-sage transition-all duration-300 ${
+                  isActive(link.href) ? 'text-sage' : ''
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
 
         <div className="flex items-center gap-4">
-          <button
-            onClick={onOpenAnalysis}
+          <Link
+            href="/analyze"
             className="hidden sm:block px-7 py-2.5 text-[11px] font-bold uppercase tracking-[0.15em] bg-gray-900 text-white rounded-full hover:bg-sage transition-all duration-500 shadow-sm"
           >
             Start Scan
-          </button>
+          </Link>
 
           <button
             className="lg:hidden p-2"
@@ -56,11 +73,16 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenAnalysis }) => {
 
       <div className={`lg:hidden fixed inset-0 bg-white z-50 transition-transform duration-500 pt-24 px-6 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col gap-8 text-2xl font-serif">
-          <button onClick={() => {onOpenAnalysis(); setMobileMenuOpen(false);}}>Skin Scan</button>
-          <a href="#systems" onClick={() => setMobileMenuOpen(false)}>Systems</a>
-          <a href="#transformations" onClick={() => setMobileMenuOpen(false)}>Real Results</a>
-          <a href="#support" onClick={() => setMobileMenuOpen(false)}>Consultation</a>
-          <a href="#">About Elvora</a>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className={isActive(link.href) ? 'text-sage' : ''}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
       </div>
     </nav>

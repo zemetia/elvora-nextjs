@@ -1,20 +1,36 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface HeroProps {
-  onOpenAnalysis: () => void;
+  onOpenAnalysis?: () => void;
 }
 
 const Hero: React.FC<HeroProps> = ({ onOpenAnalysis }) => {
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+  const images = ['/hero-1.png', '/hero-2.png', '/hero-3.png'];
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-[90vh] lg:h-screen flex items-center pt-20 overflow-hidden bg-[#F2F2F0]">
       <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block">
         <div className="relative w-full h-full">
-           <img
-            src="https://images.unsplash.com/photo-1598440447619-5c35f8994679?auto=format&fit=crop&q=80&w=2000"
-            alt="Premium Skincare"
-            className="w-full h-full object-cover grayscale brightness-110 contrast-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F2F2F0] via-transparent to-transparent" />
+          {images.map((src, index) => (
+            <img
+              key={src}
+              src={src}
+              alt={`Premium Skincare ${index + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover grayscale brightness-110 contrast-105 transition-opacity duration-[2000ms] ease-in-out ${
+                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F2F2F0] via-transparent to-transparent z-10" />
         </div>
       </div>
 
@@ -35,17 +51,17 @@ const Hero: React.FC<HeroProps> = ({ onOpenAnalysis }) => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-5">
-            <button
-              onClick={onOpenAnalysis}
+            <Link
+              href="/analyze"
               className="group relative px-10 py-5 bg-gray-900 text-white rounded-full font-medium overflow-hidden transition-all duration-500 shadow-xl text-center"
             >
               <span className="relative z-10 text-xs font-bold uppercase tracking-widest">Scan Your Skin</span>
               <div className="absolute inset-0 bg-sage scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
-            </button>
+            </Link>
 
-            <button className="px-10 py-5 bg-white border border-gray-200 text-gray-900 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-gray-50 transition-all duration-300">
-              Start Quiz
-            </button>
+            <Link href="/routine" className="px-10 py-5 bg-white border border-gray-200 text-gray-900 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-gray-50 transition-all duration-300 text-center">
+              Explore Routines
+            </Link>
           </div>
         </div>
       </div>
