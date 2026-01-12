@@ -1,6 +1,15 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getSystemBySlug, getAllSystemSlugs } from '@/lib/data/systems';
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const system = getSystemBySlug(params.slug);
+  return {
+    title: system ? `${system.title} - Elvora` : "System Not Found - Elvora",
+    description: system?.description || "Elvora clinical skin system",
+  };
+}
 
 export async function generateStaticParams() {
   const slugs = getAllSystemSlugs();
